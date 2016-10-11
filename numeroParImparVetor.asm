@@ -17,7 +17,7 @@
 	.data
 msg1:	.asciiz "É PAR: \n"
 msg2:	.asciiz "É ÍMPAR: \n"
-vetor:  .word 0,1,2,3,4,5,6,7,8,9
+vetor:  .word 2,1,2,3,4,5,6,7,8,9
 	.text
 	la $s0, 0 	#Indice do vetor[x]
 	li $t0, 0	#Inicializa contador do laço com 0 (início)
@@ -29,20 +29,21 @@ loop:
 	lw $t2, vetor($s0) #carregando valor da memória vetor[x]
 	div $t0, $t2, $t5
 	mul $t3, $t0, $t5
-	beq $t3, $t2, nPar
+	bne $t3, $t2, nPar
 	la $a0, msg1	
-	li $v0, 4
 	addi $t4, $t4, 1 #Contador de pares
+	li $v0, 4
 	syscall
-	nPar:
-		la $a0, msg2
-		li $v0, 4
-		addi $t3, 4 #Contador de Ímpares
-		syscall
-		#mul $t3, $t0, $t2
-		#beq $t3, $zero, label
-		#li $v0, 4
-	#jr $ra
+	lw $a0, vetor($s0)
+	li $v0, 1
+	syscall
+	
 	addi $s0, $s0, 4 #Incrementando s0 mais 4 bytes
 	addi $t1, $t1, -1 #decrementando o indíce
 	bne $t1, $zero, loop #Condição para continuar
+nPar:
+	la $a0, msg2
+	li $v0, 4
+	addi $t3, $t3, 1 #Contador de Ímpares
+	syscall
+	
