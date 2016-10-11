@@ -15,8 +15,8 @@
 #printf ("TOTAL DE IMPARES: %d", cont2);
 
 	.data
-msg1:	.asciiz "É PAR: \n"
-msg2:	.asciiz "É ÍMPAR: \n"
+msg1:	.asciiz "\nÉ PAR, O NÚMERO É: "
+msg2:	.asciiz "\nÉ ÍMPAR, O NÚMERO É: "
 vetor:  .word 2,1,2,3,4,5,6,7,8,9
 	.text
 	la $s0, 0 	#Indice do vetor[x]
@@ -34,16 +34,20 @@ loop:
 	addi $t4, $t4, 1 #Contador de pares
 	li $v0, 4
 	syscall
-	lw $a0, vetor($s0)
-	li $v0, 1
+	lw $a0, vetor($s0)#Pegando o valor do vetor
+	li $v0, 1 #Para printar
 	syscall
 	
 	addi $s0, $s0, 4 #Incrementando s0 mais 4 bytes
-	addi $t1, $t1, -1 #decrementando o indíce
+	addi $t1, $t1, -1 #decrementando o indíce	
 	bne $t1, $zero, loop #Condição para continuar
+
+
 nPar:
 	la $a0, msg2
 	li $v0, 4
 	addi $t3, $t3, 1 #Contador de Ímpares
 	syscall
-	
+	lw $a0, vetor($s0)
+	li $v0, 1
+	syscall	
