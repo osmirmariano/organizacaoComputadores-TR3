@@ -1,10 +1,10 @@
-#Fazer um programa que compare dois números (a,b) e diga se a>b, ou b>a, ou ainda se a==b
+#Fazer um programa que compare dois nÃºmeros (a,b) e diga se a>b, ou b>a, ou ainda se a==b
 	.data
-msg1:	.asciiz "A é maior que C"
-msg2:	.asciiz "C é maior que A"
-msg3: 	.asciiz "A é igual a C"
+msg1:	.asciiz "A Ã© maior que C"
+msg2:	.asciiz "C Ã© maior que A"
+msg3: 	.asciiz "A Ã© igual a C"
 
-a: 	.word 7
+a: 	.word 2
 c: 	.word 9
 	
 	.text
