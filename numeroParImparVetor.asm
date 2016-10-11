@@ -15,6 +15,8 @@
 #printf ("TOTAL DE IMPARES: %d", cont2);
 
 	.data
+msg1:	.asciiz "É PAR: "
+msg2:	.asciiz "É ÍMPAR: "
 vetor:  .word 0,1,2,3,4,5,6,7,8,9
 	.text
 	la $s0, 0 	#Indice do vetor[x]
@@ -22,21 +24,20 @@ vetor:  .word 0,1,2,3,4,5,6,7,8,9
 	li $t1, 10 	#Inicializa contador do laço com 10 (final)
 	li $t2, 0	#Inicializa contador para quantidade de pares com 0
 	li $t3, 0 	#Inicializa contador para quantidade de ímpares com 0
+	li $t5, 2
 loop:
 	lw $t2, vetor($s0) #carregando valor da memória vetor[x]
-	div $t0, $t0, $t2
-	mul $t3, $t0, $t2
-	beq $t3, $zero, nPar
+	div $t0, $t2, $t5
+	mul $t3, $t0, $t5
+	beq $t3, $t5, nPar
+	la $a0, msg1
 	li $v0, 4
 	syscall
-	
+	nPar:
+		#mul $t3, $t0, $t2
+		#beq $t3, $zero, label
+		#li $v0, 4
+	#	jr $ra
 	addi $s0, $s0, 4 #Incrementando s0 mais 4 bytes
 	addi $t1, $t1, -1 #decrementando o indíce
 	bne $t1, $zero, loop #Condição para continuar
-nPar:
-	mul $t3, $t0, $t2
-	beq $t3, $zero, label
-	li $v0, 4
-	syscall
-	jr $ra
-label:
