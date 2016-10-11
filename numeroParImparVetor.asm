@@ -34,6 +34,8 @@ loop:
 	li $v0, 4
 	syscall
 	nPar:
+		la $a0, msg2
+		syscall
 		#mul $t3, $t0, $t2
 		#beq $t3, $zero, label
 		#li $v0, 4
