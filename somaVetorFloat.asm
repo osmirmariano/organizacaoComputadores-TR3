@@ -8,15 +8,15 @@
 #cout << "SOMA: " << soma;
 
 	.data
-vetor: 	.word 0,1,2,3,4,5,6,7,8,9
+vetor: 	.float 0,1,2,3,4,5,6,7,8,9
 
 	.text
-	la $s0, 0 #Indice do vetor[x]
+	l.s $f0, 0 #Indice do vetor[x]
 	li $t0, 0 #Inicializa soma com 0
 	li $t1, 10 #Inicializa contador com 10
 loop:
-	lw $t2, vetor($s0) #carregando valor da memória vetor[x]
-	add $t0, $t0, $t2 #soma = soma+vetor[x]
-	addi $s0, $s0, 4 #Incrementando s0 mais 4 bytes
+	l.d $f2, vetor($f0) #carregando valor da memória vetor[x]
+	add $t0, $t0, $f2 #soma = soma+vetor[x]
+	addi $f0, $f0, 4 #Incrementando s0 mais 4 bytes
 	addi $t1, $t1, -1 #decrementando o indíce
 	bne $t1, $zero, loop #Condiçãoo para continuar
