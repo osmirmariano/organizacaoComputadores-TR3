@@ -14,34 +14,35 @@
 #printf ("TOTAL DE PARES: %d", cont1);
 #printf ("TOTAL DE IMPARES: %d", cont2);
 
-	.data
-msg1:	.asciiz "\nÉ PAR, O NÚMERO É: "
-msg2:	.asciiz "\nÉ ÍMPAR, O NÚMERO É: "
-vetor:  .word 2,1,2,3,4,5,6,7,8,9
+		.data
+msg1:		.asciiz "\nÉ PAR, O NÚMERO É: "
+msg2:		.asciiz "\nÉ ÍMPAR, O NÚMERO É: "
+quantPar:	.asciiz "\nQUANTIDADE DE PARES: "
+quantImpar:	.asciiz "\nQUANTIDADE DE ÍMPARES: "
+vetor:  .word 2,1
 	.text
 	la $s0, 0 	#Indice do vetor[x]
 	li $t0, 0	#Inicializa contador do laço com 0 (início)
 	li $t1, 10 	#Inicializa contador do laço com 10 (final)
 	li $t4, 0	#Inicializa contador para quantidade de pares com 0
 	li $t3, 0 	#Inicializa contador para quantidade de ímpares com 0
-	li $t5, 2
+	li $t5, 2	#Inicializando com valor $t5 para realizar a divisão
 loop:
-	lw $t2, vetor($s0) #carregando valor da memória vetor[x]
-	div $t0, $t2, $t5
-	mul $t3, $t0, $t5
-	bne $t3, $t2, nPar
-	la $a0, msg1	
-	addi $t4, $t4, 1 #Contador de pares
+	lw $t2, vetor($s0) 	#carregando valor da memória vetor[x]
+	div $t0, $t2, $t5 	#Realizando a divisão entre o valor que está na posição do vetor e 2 $t5
+	mul $t3, $t0, $t5 	#Realiza a multiplicação entre o resultado da divisão e 2 $t5
+	bne $t3, $t2, nPar 	#Se $t3 != $t2 é impar, então entra no nPar
+	la $a0, msg1		#$a0 recebendo a variável msg1 dizendo que é par
+	addi $t4, $t4, 1 	#Contar a quantidade de números que são pares
 	li $v0, 4
 	syscall
-	lw $a0, vetor($s0)#Pegando o valor do vetor
-	li $v0, 1 #Para printar
+	lw $a0, vetor($s0)	#Pegando o valor do vetor
+	li $v0, 1 		#Para printar
 	syscall
 	
 	addi $s0, $s0, 4 #Incrementando s0 mais 4 bytes
 	addi $t1, $t1, -1 #decrementando o indíce	
 	bne $t1, $zero, loop #Condição para continuar
-
 
 nPar:
 	la $a0, msg2
@@ -51,3 +52,9 @@ nPar:
 	lw $a0, vetor($s0)
 	li $v0, 1
 	syscall	
+	addi $s0, $s0, 4 #Incrementando s0 mais 4 bytes
+	addi $t1, $t1, -1 #decrementando o indíce	
+	beq $t1, $zero, encerra
+	j loop
+encerra:
+	
