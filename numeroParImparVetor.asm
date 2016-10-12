@@ -17,9 +17,9 @@
 		.data
 msg1:		.asciiz "\nÉ PAR, O NÚMERO É: "
 msg2:		.asciiz "\nÉ ÍMPAR, O NÚMERO É: "
-quantPar:	.asciiz "\nQUANTIDADE DE PARES: "
-quantImpar:	.asciiz "\nQUANTIDADE DE ÍMPARES: "
-vetor:  .word 2,1
+quantPar:	.asciiz "\nEXISTEM MAIS NÚMEROS PARES: "
+quantImpar:	.asciiz "\nEXISTEM MAIS NÚMEROS ÍMPARES: "
+vetor:  .word 2,1,2,3,4,5,6,7,8,9
 	.text
 	la $s0, 0 	#Indice do vetor[x]
 	li $t0, 0	#Inicializa contador do laço com 0 (início)
@@ -40,21 +40,33 @@ loop:
 	li $v0, 1 		#Para printar
 	syscall
 	
-	addi $s0, $s0, 4 #Incrementando s0 mais 4 bytes
-	addi $t1, $t1, -1 #decrementando o indíce	
-	bne $t1, $zero, loop #Condição para continuar
+	addi $s0, $s0, 4 	#Incrementando s0 mais 4 bytes
+	addi $t1, $t1, -1 	#decrementando o indíce	
+	bne $t1, $zero, loop 	#Condição para continuar
 
 nPar:
 	la $a0, msg2
 	li $v0, 4
-	addi $t3, $t3, 1 #Contador de Ímpares
+	addi $t3, $t3, 1 	#Contador de Ímpares
 	syscall
-	lw $a0, vetor($s0)
+	lw $a0, vetor($s0)	#Pegando o valor do vetor
 	li $v0, 1
 	syscall	
-	addi $s0, $s0, 4 #Incrementando s0 mais 4 bytes
-	addi $t1, $t1, -1 #decrementando o indíce	
-	beq $t1, $zero, encerra
+	addi $s0, $s0, 4 	#Incrementando s0 mais 4 bytes
+	addi $t1, $t1, -1 	#decrementando o indíce	
+	beq $t1, $zero, quantMaior
 	j loop
-encerra:
+quantMaior:
+	slt $t6, $t4, $t3	#Fazendo o teste de quem é o maior
+	beq $6, 1, par		#Condição caso não seja, desvia para a par
+	la $a0, quantImpar	#$a0 recebendo quantImpar
+	li $v0, 4		#Para printar string
+	syscall
+	j final			#Jump para encerrar aplicação
+par:
+	la $a1, quantPar	#$a0 recebendo quantPar
+	li $v0, 4		#Para printar string
+	syscall
+	j final
+final:
 	
