@@ -65,7 +65,7 @@ quantMaior:
 	syscall
 	j final			#Jump para encerrar aplicação
 par:
-	la $a1, quantPar	#$a0 recebendo quantPar
+	la $a0, quantPar	#$a0 recebendo quantPar
 	li $v0, 4		#Para printar string
 	syscall
 	j final
