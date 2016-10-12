@@ -1,6 +1,7 @@
 #Fazer um programa leia um vetor, mostre todos os números pares desse vetor, depois mostre todos
 #os números ímpares e diga se no vetor há mais números pares ou números ímpares.
 #int vetor[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0}, cont1 = 0, cont2 = 0;
+#Implementação em C
 #for(int x = 0; x < 10; x++){
 #	if(vetor[x]/2 == 0){
 #		printf ("PARES: %d", vetor[x]);
@@ -13,7 +14,7 @@
 #}
 #printf ("TOTAL DE PARES: %d", cont1);
 #printf ("TOTAL DE IMPARES: %d", cont2);
-
+#Implementação em Assembly
 		.data
 msg1:		.asciiz "\nÉ PAR, O NÚMERO É: "
 msg2:		.asciiz "\nÉ ÍMPAR, O NÚMERO É: "
