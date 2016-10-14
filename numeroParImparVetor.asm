@@ -20,7 +20,7 @@ msg1:		.asciiz "\nÉ PAR, O NÚMERO É: "
 msg2:		.asciiz "\nÉ ÍMPAR, O NÚMERO É: "
 quantPar:	.asciiz "\nEXISTEM MAIS NÚMEROS PARES: "
 quantImpar:	.asciiz "\nEXISTEM MAIS NÚMEROS ÍMPARES: "
-vetor:  .word 2,1,2,3,4,5,6,7,8,9
+vetor:  .word 8,2,6,4,3,4,6,7,8,9
 	.text
 	la $s0, 0 	#Indice do vetor[x]
 	li $t0, 0	#Inicializa contador do laço com 0 (início)
@@ -59,7 +59,7 @@ nPar:
 	j loop
 quantMaior:
 	slt $t6, $t4, $t3	#Fazendo o teste de quem é o maior
-	beq $6, 1, par		#Condição caso não seja, desvia para a par
+	beq $t6, 1, par		#Condição caso não seja, desvia para a par
 	la $a0, quantImpar	#$a0 recebendo quantImpar
 	li $v0, 4		#Para printar string
 	syscall

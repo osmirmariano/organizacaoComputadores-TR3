@@ -5,7 +5,7 @@ msg2:	.asciiz "C é maior que A"
 msg3: 	.asciiz "A é igual a C"
 
 a: 	.word 10
-c: 	.word 9
+c: 	.word 10
 	
 	.text
 	lw $a0, a
